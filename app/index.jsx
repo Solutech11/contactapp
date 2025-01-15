@@ -1,38 +1,34 @@
 import { Link } from "expo-router";
-import { Text, View, StyleSheet, TextInput, Button } from "react-native";
+import { Text, View, StyleSheet, TextInput, Button, Pressable, Image } from "react-native";
 import AuthLayout from "./Layouts/AuthLayout";
-
+import { SafeAreaView } from "react-native-safe-area-context";
+import { StatusBar } from "expo-status-bar";
+const logo = require("./../assets/images/splash-img.png");
 export default function HomeScreen() {
   return (
-    <AuthLayout screen={"Login"}>
-      <View style={{ flex: 7, padding: 12 }}>
-        <View style={{ marginBottom: 6 }}>
-          <Text style={{ fontWeight: "500", fontSize: 16 }}>Email</Text>
-          <TextInput
-            style={styles.textInput}
-            placeholder="Email"
-            keyboardType="email-address"
-          />
-        </View>
-        <View style={{ marginBottom: 6 }}>
-          <Text style={{ fontWeight: "500", fontSize: 16 }}>Password</Text>
-          <TextInput
-            style={styles.textInput}
-            placeholder="Password"
-            secureTextEntry={true}
-          />
-        </View>
+    <SafeAreaView style={{ flex: 1 }}>
+          <StatusBar style="dark" />
+          <View
+            style={{ flex: 1 }}
+          >
+            <Pressable style={{ flex: 1 }} onPress={() => Keyboard.dismiss()}>
+              {/* header */}
+              <View style={styles.header}>
+                <Image source={logo} style={{ width: 60, height: 60 }} />
+                <Text style={styles.headerText}>Contacts</Text>
+              </View>
 
-        <View style={styles.linkView}>
-          <Text>Don't have an account?</Text>
-          <Link style={{ fontWeight: "500", color: "blue" }} href="/Register">
-            Register
-          </Link>
-        </View>
+              {/* children */}
+              <View style={{ flex: 7 }}>
 
-        <Button title="Login" />
-      </View>
-    </AuthLayout>
+              </View>
+              {/* footer */}
+              <View style={styles.footer}>
+                <Text style={styles.footerText}>Developed by Solutech</Text>
+              </View>
+            </Pressable>
+          </View>
+    </SafeAreaView>
   );
 }
 
@@ -49,4 +45,17 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     marginBottom: 10,
   },
+  headerText: {
+    fontSize: 24,
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  header: {
+    flex: 2,
+    flexDirection:'row',
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  footer: { flex: 1, justifyContent: "center", alignItems: "center" },
+  footerText: { fontSize: 16, fontWeight: "500", textAlign: "center" },
 });
