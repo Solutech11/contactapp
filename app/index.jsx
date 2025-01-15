@@ -1,8 +1,9 @@
 import { Link } from "expo-router";
-import { Text, View, StyleSheet, TextInput, Button, Pressable, Image } from "react-native";
+import { Text, View, StyleSheet, TextInput, Button, Pressable, Image, Keyboard, ScrollView, TouchableOpacity } from "react-native";
 import AuthLayout from "./Layouts/AuthLayout";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
+
 const logo = require("./../assets/images/splash-img.png");
 export default function HomeScreen() {
   return (
@@ -19,8 +20,21 @@ export default function HomeScreen() {
               </View>
 
               {/* children */}
-              <View style={{ flex: 7 }}>
+              <View style={{ flex: 1 , paddingVertical:30, paddingHorizontal:20}}>
+                <ScrollView>
 
+                  {/* items */}
+                  <TouchableOpacity style={styles.ItemView}>
+                    <Image source={require('../assets/images/splash-img.png')} style={{width:40, height:40}} />
+
+                    <View>
+                      <Text style={styles.ItemText}>Swaziburg Duoni </Text>
+                      <Text style={[styles.ItemText,{fontSize:13}]}>08133092341</Text>
+                    </View>
+                  </TouchableOpacity>
+
+
+                </ScrollView>
               </View>
               {/* footer */}
               <View style={styles.footer}>
@@ -51,11 +65,24 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   header: {
-    flex: 2,
     flexDirection:'row',
-    justifyContent: "center",
-    alignItems: "center",
+    alignItems:'center',
+    justifyContent:'space-between',
+    width:'100%',
+    paddingHorizontal:30
   },
-  footer: { flex: 1, justifyContent: "center", alignItems: "center" },
+  footer: { justifyContent: "center", alignItems: "center" },
   footerText: { fontSize: 16, fontWeight: "500", textAlign: "center" },
+  ItemView:{
+    backgroundColor:'gray',
+    flexDirection:'row',
+    padding:10,
+    borderRadius:10,
+    gap:10
+  },
+  ItemText:{
+    color:'white',
+    fontSize:15,
+    fontWeight:'600'
+  }
 });
