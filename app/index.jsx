@@ -5,6 +5,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
 import * as SQLite from 'expo-sqlite';
 import { useEffect, useState } from "react";
+import AddContactModal from "@/components/ui/Add";
 
 const logo = require("./../assets/images/splash-img.png");
 export default function HomeScreen() {
@@ -13,6 +14,8 @@ export default function HomeScreen() {
 
   const [Contacts, setContacts] = useState([])
 
+
+  const [ModalVisibility, setModalVisibility] = useState(true)
   
 
   async function initializeDb(db) {
@@ -63,7 +66,7 @@ export default function HomeScreen() {
       setdb(newdb)
       await initializeDb(newdb)
       await FetchContacts(newdb)
-      AddContact(db)
+      // AddContact(db)
 
     })()
   }, [])
@@ -107,7 +110,7 @@ export default function HomeScreen() {
 
 
                 </ScrollView>
-                <TouchableOpacity style={styles.AddBTN}>
+                <TouchableOpacity onPress={()=>setModalVisibility(true)} style={styles.AddBTN}>
                   <Text style={[styles.ItemText,{fontSize:20, textAlign:'center',textAlignVertical:'center'}]}>+</Text>
                 </TouchableOpacity>
               </View>
@@ -120,6 +123,9 @@ export default function HomeScreen() {
 
             
           </View>
+
+          {/* modal  */}
+          <AddContactModal visibility={ModalVisibility} setVisibility={setModalVisibility} />
     </SafeAreaView>
   );
 }
@@ -167,7 +173,7 @@ const styles = StyleSheet.create({
 
   //add btn view
   AddBTN:{
-    backgroundColor:'blue',
+    backgroundColor:'#02a9ea',
     width:50,
     height:50,
     position:'absolute',
