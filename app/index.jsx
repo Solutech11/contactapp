@@ -82,13 +82,13 @@ export default function HomeScreen() {
               </View>
 
               {/* children */}
-              <View style={{ flex: 1 , paddingVertical:30, paddingHorizontal:20}}>
-                <ScrollView>
+              <View style={{ flex: 1 , paddingVertical:20, paddingHorizontal:10}}>
+                <ScrollView showsVerticalScrollIndicator={false}>
 
                   {
                     Contacts.length>0?(
                       Contacts.map((i,key)=>(
-                        <TouchableOpacity style={styles.ItemView}>
+                        <TouchableOpacity key={key} style={styles.ItemView}>
                           <Image source={require('../assets/images/splash-img.png')} style={{width:40, height:40}} />
 
                           <View>
@@ -107,12 +107,18 @@ export default function HomeScreen() {
 
 
                 </ScrollView>
+                <TouchableOpacity style={styles.AddBTN}>
+                  <Text style={[styles.ItemText,{fontSize:20, textAlign:'center',textAlignVertical:'center'}]}>+</Text>
+                </TouchableOpacity>
               </View>
               {/* footer */}
               <View style={styles.footer}>
                 <Text style={styles.footerText}>Developed by Solutech</Text>
               </View>
             </Pressable>
+
+
+            
           </View>
     </SafeAreaView>
   );
@@ -157,5 +163,18 @@ const styles = StyleSheet.create({
     color:'white',
     fontSize:15,
     fontWeight:'600'
+  },
+
+  //add btn view
+  AddBTN:{
+    backgroundColor:'blue',
+    width:50,
+    height:50,
+    position:'absolute',
+    bottom:25,
+    right:10,
+    borderRadius:50,
+    alignItems:'center',
+    justifyContent:'center'
   }
 });
