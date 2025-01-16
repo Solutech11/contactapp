@@ -1,5 +1,5 @@
 import { Link } from "expo-router";
-import { Text, View, StyleSheet, TextInput, Button, Pressable, Image, Keyboard, ScrollView, TouchableOpacity } from "react-native";
+import { Text, View, StyleSheet, TextInput, Button, Pressable, Image, Keyboard, ScrollView, TouchableOpacity, Alert } from "react-native";
 import AuthLayout from "./Layouts/AuthLayout";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
@@ -46,12 +46,17 @@ export default function HomeScreen() {
     }
   }
 
-  async function AddContact(db) {
+  async function AddContact(name, phone) {
+    if(!db) return;
     try {
-      let name=`John Dolphin ${Math.random().toFixed(2)}`;
-      let phone= '123-456,7890'
 
-      const result = await db.runAsync('INSERT INTO contacts (name, phone) VALUES (?, ?)', name, phone);
+      if(name?.length<=0)return Alert.alert('Error','Name has not been added!')
+      if(phone?.length<=0)return Alert.alert('Error','Phone has not been added!')
+
+      let newname=`${name} ${Math.random().toFixed(1)}`;
+      let newphone= phone
+
+      const result = await db.runAsync('INSERT INTO contacts (name, phone) VALUES (?, ?)', newname, newphone);
       await FetchContacts(db)
       
     } catch (error) {

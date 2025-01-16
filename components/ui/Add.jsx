@@ -1,18 +1,22 @@
 import { Keyboard, Modal, Pressable, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 
 const AddContactModal = ({visibility, setVisibility}) => {
+  
+  const [Name, setName] = useState('')
+  const [PhoneNo, setPhoneNo] = useState('')
+
   return (
-    <Modal transparent={true} visible={visibility}>
+    <Modal transparent={true} visible={visibility} animationType='fade'>
         <Pressable onPress={()=>Keyboard.dismiss()} style={{flex:1, alignItems:'center', justifyContent:'center'}}>
             <Pressable onPress={()=>setVisibility(false)} style={{backgroundColor:'black',opacity:0.5, position:'absolute', width:'100%',height:'100%'}} />
 
             <View  style={styles.Container}>
                 <Text style={{fontSize:18, fontWeight:600, borderBottomWidth:1, width:'100%', textAlign:'center', paddingBottom:10}}>Add Contact</Text>
                 
-                <TextInput placeholder='Name' autoCapitalize='words' style={styles.TextInput}  />
+                <TextInput placeholder='Name' autoCapitalize='words' style={styles.TextInput} defaultValue={Name} onChangeText={setName}  />
 
-                <TextInput placeholder='Phone Number' keyboardType='phone-pad' style={styles.TextInput}  />
+                <TextInput placeholder='Phone Number' keyboardType='phone-pad' style={styles.TextInput} defaultValue={PhoneNo} onChangeText={setPhoneNo}  />
 
                 <TouchableOpacity style={styles.Buttons}>
                   <Text style={{color:'white', fontWeight:'500'}}>Add</Text>
