@@ -10,12 +10,16 @@ import AddContactModal from "@/components/ui/Add";
 const logo = require("./../assets/images/splash-img.png");
 export default function HomeScreen() {
 
+  //modal input
+  const [Name, setName] = useState('')
+  const [PhoneNo, setPhoneNo] = useState('')
+
   const [db, setdb] = useState(null)
 
   const [Contacts, setContacts] = useState([])
 
 
-  const [ModalVisibility, setModalVisibility] = useState(true)
+  const [ModalVisibility, setModalVisibility] = useState(false)
   
 
   async function initializeDb(db) {
@@ -40,7 +44,7 @@ export default function HomeScreen() {
   async function FetchContacts(db) {
     try {
       let data= await db.getAllAsync('SELECT * FROM contacts');
-      setContacts(data)
+      setContacts(data?.reverse())
     } catch (error) {
       console.error("error fetching db", error)
     }
@@ -58,6 +62,10 @@ export default function HomeScreen() {
 
       const result = await db.runAsync('INSERT INTO contacts (name, phone) VALUES (?, ?)', newname, newphone);
       await FetchContacts(db)
+
+      setModalVisibility(false)
+      setName('')
+      setPhoneNo('')
       
     } catch (error) {
       
@@ -66,6 +74,8 @@ export default function HomeScreen() {
   }
 
   useEffect(() => {
+    console.log(10);
+    
     (async()=>{
       const newdb = await SQLite.openDatabaseAsync('contacts');
       setdb(newdb)
@@ -130,7 +140,7 @@ export default function HomeScreen() {
           </View>
 
           {/* modal  */}
-          <AddContactModal visibility={ModalVisibility} setVisibility={setModalVisibility} />
+          <AddContactModal visibility={ModalVisibility} setVisibility={setModalVisibility} AddContactFunc={AddContact} Name={Name} setName={setName} setPhoneNo={setPhoneNo} PhoneNo={PhoneNo} />
     </SafeAreaView>
   );
 }

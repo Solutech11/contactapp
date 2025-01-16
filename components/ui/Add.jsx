@@ -1,10 +1,9 @@
 import { Keyboard, Modal, Pressable, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import React, { useState } from 'react'
 
-const AddContactModal = ({visibility, setVisibility}) => {
+const AddContactModal = ({visibility, setVisibility, AddContactFunc, Name, setName, PhoneNo, setPhoneNo}) => {
   
-  const [Name, setName] = useState('')
-  const [PhoneNo, setPhoneNo] = useState('')
+  
 
   return (
     <Modal transparent={true} visible={visibility} animationType='fade'>
@@ -18,7 +17,7 @@ const AddContactModal = ({visibility, setVisibility}) => {
 
                 <TextInput placeholder='Phone Number' keyboardType='phone-pad' style={styles.TextInput} defaultValue={PhoneNo} onChangeText={setPhoneNo}  />
 
-                <TouchableOpacity style={styles.Buttons}>
+                <TouchableOpacity onPress={()=>AddContactFunc(Name, PhoneNo)} style={styles.Buttons}>
                   <Text style={{color:'white', fontWeight:'500'}}>Add</Text>
                 </TouchableOpacity>
 
